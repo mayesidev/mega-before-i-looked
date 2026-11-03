@@ -59,7 +59,8 @@ describe('digest routes', () => {
     expect(html).toContain('2026-10-29T01:00:00+02:00');
     expect(html).toContain('&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt;');
     expect(html).not.toContain('<script>alert("x")</script>');
-    expect(html.match(/class="warn"/g)?.length).toBeGreaterThanOrEqual(3);
+    expect(html).toContain('<td class="warn">3</td>');
+    expect(html).toContain('<td class="warn">fail</td>');
   });
 
   it('serves the exact same job order and fields for the public fixture nights', async () => {
@@ -72,6 +73,14 @@ describe('digest routes', () => {
       const digest = await jsonRes.json();
       expect(htmlRes.status).toBe(200);
       expect(jsonRes.status).toBe(200);
+      const cells = [...html.matchAll(/<tr>([\s\S]*?)<\/tr>/g)]
+        .map((row) => [...row[1].matchAll(/<td[^>]*>([\s\S]*?)<\/td>/g)].map((cell) => cell[1]))
+        .filter((row) => row.length > 0);
+      expect(cells).toEqual(digest.rows.map((row: {
+        job: string; owner: string | null; runs: number; retries: number;
+        lastStatus: string; lastError: string | null; firstAt: string; lastAt: string;
+      }) => [row.job, row.owner, row.runs, row.retries, row.lastStatus, row.lastError, row.firstAt, row.lastAt]
+        .map((value) => value === null || value === '' ? '—' : String(value))));
       let previous = -1;
       for (const row of digest.rows) {
         const position = html.indexOf(row.job);
