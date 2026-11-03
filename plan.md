@@ -68,7 +68,9 @@ self-contained, ADR 0001). Put it on your own public host, one where you can upl
 or static host, ADR 0003), so it opens from a public HTTPS link. Send the reviewer the link and the
 issues for this plan.
 
-Done when: the preview link is sent to the reviewer.
+Done when: the preview link is sent to the reviewer and the course confirms that the reviewer has actually looked.
+
+Course clarification after the first submission: keep the preview issue open while review is pending. Acceptance of the link alone does not complete review.
 
 ## 4. Clean up
 

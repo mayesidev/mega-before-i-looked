@@ -19,7 +19,7 @@ The command starts the service, fetches `/digest/2026-10-28`, saves one self-con
 
 After approval, enable GitHub Pages with GitHub Actions as its source, and set the course marker as the repository secret `LANE_MARKER` so workflow logs mask it. Dispatch the **Review preview** workflow on `main` with `with_marker=true`. Pushes never trigger publication.
 
-Read back the public HTTPS page, verify its marker and five digest rows, then submit that exact URL and this repository through the course's `claim_challenge` tool. Preserve the response and follow its next action. Issue #7 is complete when the link has been submitted; submission does not establish that review has arrived.
+Read back the public HTTPS page, verify its marker and five digest rows, then submit that exact URL and this repository through the course's `claim_challenge` tool. Preserve the response and follow its next action. Keep issue #7 open until the course confirms that the reviewer actually looked. Submission acceptance alone does not complete review; the course rejected the first attempt because this issue was closed too early.
 
 ## Replace only after review and separate approval
 
