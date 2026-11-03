@@ -1,6 +1,6 @@
 # Morning digest review preview
 
-Plan: `plan.md` §§ 3–4. Tracking: issues [#7](https://github.com/mayesidev/mega-before-i-looked/issues/7) and [#8](https://github.com/mayesidev/mega-before-i-looked/issues/8).
+Plan: [completed morning digest](plans/done/2026-11-03-morning-digest.md) §§ 3–4. Tracking: issues [#7](https://github.com/mayesidev/mega-before-i-looked/issues/7) and [#8](https://github.com/mayesidev/mega-before-i-looked/issues/8).
 
 ## Prepare locally
 

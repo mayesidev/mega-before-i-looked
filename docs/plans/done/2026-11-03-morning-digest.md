@@ -1,8 +1,9 @@
 ---
 plan: morning-digest
-status: ready
+status: done
 owner: rook
 opened: 2026-10-29
+closed: 2026-11-03
 ---
 
 # Morning digest
@@ -79,3 +80,26 @@ page again with `LANE_MARKER` unset (the banner reads "no marker set") and uploa
 link. Move this plan to `docs/plans/done/` with its issue list.
 
 Done when: the preview link no longer shows the lane marker.
+
+## Issues
+
+| Issue | Source section | Blocked by | Primary worker | Completed |
+| --- | --- | --- | --- | --- |
+| [#1 Digest contract](https://github.com/mayesidev/mega-before-i-looked/issues/1) | § 1 | — | Codex · gpt-6-astra · high | 2026-11-03 |
+| [#2 Run-log reader](https://github.com/mayesidev/mega-before-i-looked/issues/2) | § 1 | #1 | Codex · gpt-6-astra · high | 2026-11-03 |
+| [#3 Digest page](https://github.com/mayesidev/mega-before-i-looked/issues/3) | § 2a | #1; #2 for completion | Codex · gpt-6-luna · low | 2026-11-03 |
+| [#4 Digest JSON](https://github.com/mayesidev/mega-before-i-looked/issues/4) | § 2b | #1; #2 for completion | Codex · gpt-6-luna · low | 2026-11-03 |
+| [#5 Board links](https://github.com/mayesidev/mega-before-i-looked/issues/5) | § 2c | #1; #2/#3 for completion | Codex · gpt-6-luna · low | 2026-11-03 |
+| [#6 Route tests](https://github.com/mayesidev/mega-before-i-looked/issues/6) | § 2d | #1; #2–#4 for completion | Codex · gpt-6-luna · low | 2026-11-03 |
+| [#7 Preview and actual review](https://github.com/mayesidev/mega-before-i-looked/issues/7) | § 3 | #2–#6; publication approval | Codex · gpt-6.1-sol · high | 2026-11-03 |
+| [#8 Preview cleanup](https://github.com/mayesidev/mega-before-i-looked/issues/8) | § 4 | #7; actual review; overwrite approval | Codex · gpt-6.1-sol · high | 2026-11-03 |
+
+Each issue was implemented on its own branch. Review fixes for #3 and #6 were made by Codex · gpt-6.1-sol · high; their issue comments record both the primary worker commits and the follow-up commits.
+
+## Completion evidence
+
+- All 27 tests and the TypeScript check passed locally and in both deployment runs. Original run fixtures are unchanged.
+- The first attempt was rejected because the preview issue was closed before actual review. It was reopened; its acceptance condition and this plan were corrected, then the course explicitly confirmed that the reviewer had seen the page before #7 closed.
+- [Marked deployment](https://github.com/mayesidev/mega-before-i-looked/actions/runs/41589265444) and [approved unmarked replacement](https://github.com/mayesidev/mega-before-i-looked/actions/runs/41645185224) succeeded.
+- [The same public preview URL](https://mayesidev.github.io/mega-before-i-looked/) returns the same digest with only the banner changed to `no marker set`. The marker is absent. The original marked artifact and temporary Actions marker secret were deleted. No preview or marker was committed.
+- The course claim and debrief are separate from plan completion; private response records stay outside this repository.
