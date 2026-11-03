@@ -1,0 +1,65 @@
+name: Review preview
+
+on:
+  workflow_dispatch:
+    inputs:
+      with_marker:
+        description: Include the lane marker (false only after review and overwrite approval)
+        type: boolean
+        required: true
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: review-preview
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.28.0
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test
+      - run: pnpm typecheck
+      - name: Save the review page from the running service
+        env:
+          LANE_MARKER: ${{ inputs.with_marker && secrets.LANE_MARKER || '' }}
+          WITH_MARKER: ${{ inputs.with_marker }}
+        run: |
+          if [ "$WITH_MARKER" = true ] && [ -z "$LANE_MARKER" ]; then
+            echo 'Set the LANE_MARKER repository secret before publishing a marked preview.' >&2
+            exit 1
+          fi
+          pnpm preview
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: var/preview
+          retention-days: 1
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish the saved page
+        id: deployment
+        uses: actions/deploy-pages@v4
